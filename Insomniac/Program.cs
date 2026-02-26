@@ -54,7 +54,9 @@ class Program
         // Set up Ctrl+C handler to restore execution state before exit
         Console.CancelKeyPress += (sender, e) =>
         {
+            e.Cancel = true;
             RestoreExecutionState();
+            Console.WriteLine("Normal power settings restored. Goodbye!");
             Environment.Exit(0);
         };
 

@@ -18,10 +18,23 @@ The application uses the following Windows execution state flags:
 
 ## Building
 
+### Build from source
 ```bash
 cd Insomniac
 dotnet build
 ```
+
+### Build single-file executable
+```bash
+cd Insomniac
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
+```
+
+The single-file executable will be created in `bin/Release/net10.0/win-x64/publish/Insomniac.exe`
+
+### Download pre-built releases
+
+Pre-built single-file executables are available on the [Releases](../../releases) page. These are automatically built and packaged by GitHub Actions whenever a new release is created.
 
 ## Usage
 
@@ -33,9 +46,11 @@ dotnet run
 
 ### Run compiled binary
 ```bash
-cd Insomniac/bin/Debug/net10.0
+cd Insomniac/bin/Release/net10.0/win-x64/publish
 ./Insomniac.exe
 ```
+
+Or simply double-click the `Insomniac.exe` file from Windows Explorer.
 
 The application will:
 1. Set the execution state to keep the system and display awake
@@ -49,7 +64,7 @@ The application calls the Windows `SetThreadExecutionState` API function with th
 
 ## Platform Compatibility
 
-This application is designed specifically for Windows and uses Windows-specific API calls. It will not function as intended on Linux or macOS systems, though it will compile and run without error on those platforms (displaying a warning message).
+This application is designed specifically for Windows and uses Windows-specific API calls. It will not function on Linux or macOS systems - the application will exit with an error message (exit code 1) when run on non-Windows platforms.
 
 ## License
 
