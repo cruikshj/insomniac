@@ -22,6 +22,15 @@ class Program
         Console.WriteLine("========================================");
         Console.WriteLine();
         
+        // Check if running on Windows
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            Console.WriteLine("Error: This application only works on Windows operating systems.");
+            Console.WriteLine("The SetThreadExecutionState API is a Windows-specific feature.");
+            Environment.Exit(1);
+            return;
+        }
+        
         // Set the execution state to keep the system and display awake
         uint previousState = SetThreadExecutionState(
             (uint)(EXECUTION_STATE.ES_CONTINUOUS | 
@@ -31,7 +40,7 @@ class Program
         if (previousState == 0)
         {
             Console.WriteLine("Warning: Failed to set execution state. Error code: " + Marshal.GetLastWin32Error());
-            Console.WriteLine("This application may not work correctly on non-Windows systems.");
+            Console.WriteLine("This application may not work correctly.");
         }
         else
         {
