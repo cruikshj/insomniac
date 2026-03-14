@@ -1,10 +1,10 @@
 # Insomniac
 
-A C# .NET 10 console application that keeps your computer display on and prevents the system from going to sleep while running.
+A C# .NET 10 Windows system tray application that keeps your computer display on and prevents the system from going to sleep.
 
 ## Description
 
-Insomniac uses Windows API calls to set execution state flags that prevent the system from entering sleep mode or turning off the display. This is useful when you need to keep your computer awake for long-running tasks, presentations, or monitoring.
+Insomniac runs quietly in the system tray with an eye icon. When active (open eye), it uses Windows API calls to set execution state flags that prevent the system from entering sleep mode or turning off the display. When inactive (closed eye), normal power management resumes.
 
 The application uses the following Windows execution state flags:
 - `ES_CONTINUOUS` - Informs the system that the state being set should remain in effect until the next call
@@ -27,10 +27,10 @@ dotnet build
 ### Build single-file executable
 ```bash
 cd Insomniac
-dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
 
-The single-file executable will be created in `bin/Release/net10.0/win-x64/publish/Insomniac.exe`
+The single-file executable will be created in `bin/Release/net10.0-windows/win-x64/publish/Insomniac.exe`
 
 ### Download pre-built releases
 
@@ -45,26 +45,25 @@ dotnet run
 ```
 
 ### Run compiled binary
-```bash
-cd Insomniac/bin/Release/net10.0/win-x64/publish
-./Insomniac.exe
-```
-
-Or simply double-click the `Insomniac.exe` file from Windows Explorer.
+Double-click `Insomniac.exe` from Windows Explorer, or run it from the command line.
 
 The application will:
-1. Set the execution state to keep the system and display awake
-2. Display a confirmation message
-3. Wait for user input (press any key or Ctrl+C to exit)
-4. Restore normal power settings when exiting
+1. Start activated (open eye icon in the system tray)
+2. Keep the system and display awake
+3. Right-click the tray icon to access:
+   - **Activate** – enable sleep prevention (shown when inactive)
+   - **Deactivate** – allow normal power management (shown when active)
+   - **Exit** – close the application and restore normal power settings
+
+The tray icon shows an open eye (👁) when active and a closed eye when inactive.
 
 ## How it Works
 
-The application calls the Windows `SetThreadExecutionState` API function with the appropriate flags to prevent the system from entering sleep mode or turning off the display. When the application exits (either through pressing any key or Ctrl+C), it automatically restores the normal power management settings.
+The application calls the Windows `SetThreadExecutionState` API function with the appropriate flags to prevent the system from entering sleep mode or turning off the display. When deactivated or when the application exits, it automatically restores the normal power management settings.
 
 ## Platform Compatibility
 
-This application is designed specifically for Windows and uses Windows-specific API calls. It will not function on Linux or macOS systems - the application will exit with an error message (exit code 1) when run on non-Windows platforms.
+This application is designed specifically for Windows and uses Windows-specific API calls. It will not function on Linux or macOS systems.
 
 ## License
 
