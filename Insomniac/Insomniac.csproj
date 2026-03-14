@@ -13,6 +13,9 @@
     <PublishTrimmed>false</PublishTrimmed>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <ApplicationIcon>insomnia.ico</ApplicationIcon>
+    <Company>cruikshj</Company>
+    <Authors>cruikshj</Authors>
+    <Copyright>cruikshj</Copyright>
   </PropertyGroup>
 
 </Project>

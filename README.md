@@ -32,9 +32,30 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 
 The single-file executable will be created in `bin/Release/net10.0-windows/win-x64/publish/Insomniac.exe`
 
+### Build installer
+
+An [InnoSetup](https://jrsoftware.org/isinfo.php) installer script is provided in the `Installer/` directory.
+
+```bash
+# First publish the executable
+cd Insomniac
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ../publish
+
+# Then compile the installer (requires Inno Setup 6+)
+cd ../Installer
+ISCC.exe /DAppVersion=1.0.0 Insomniac.iss
+```
+
+The installer supports:
+- **Per-user installation** (default, no administrator privileges required)
+- **System-wide installation** (selectable at install time, requires administrator privileges)
+- Start Menu shortcut
+- Optional desktop shortcut
+- Optional auto-start with Windows
+
 ### Download pre-built releases
 
-Pre-built single-file executables are available on the [Releases](../../releases) page. These are automatically built and packaged by GitHub Actions whenever a new release is created.
+Pre-built single-file executables and installers are available on the [Releases](../../releases) page. These are automatically built and packaged by GitHub Actions whenever a new release is created.
 
 ## Usage
 
