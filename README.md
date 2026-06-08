@@ -6,8 +6,6 @@ A C# .NET 10 Windows system tray application that keeps your computer display on
 
 Insomniac runs quietly in the system tray with an eye icon. When active (open eye), it uses Windows API calls to set execution state flags that prevent the system from entering sleep mode or turning off the display. When inactive (closed eye), normal power management resumes.
 
-![Insomniac tray icon states](insomnia.png)
-
 The application uses the following Windows execution state flags:
 - `ES_CONTINUOUS` - Informs the system that the state being set should remain in effect until the next call
 - `ES_SYSTEM_REQUIRED` - Forces the system to be in the working state by resetting the system idle timer
